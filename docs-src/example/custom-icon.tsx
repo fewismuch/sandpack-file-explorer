@@ -24,7 +24,7 @@ const App = () => {
     <div>
       <SandpackProvider template='react' theme={sandpackDark}>
         <SandpackLayout>
-          <SandpackFileExplorer fileIcon={fileIcon} />
+          <SandpackFileExplorer fileIcon={fileIcon} style={{ width: 200 }} />
           <SandpackCodeEditor showTabs closableTabs />
           <SandpackPreview />
         </SandpackLayout>

@@ -1,6 +1,6 @@
 # sandpack-file-explorer
 
-[![NPM version](https://img.shields.io/npm/v/@carbontian/sandpack-file-explorer.svg?style=flat)](https://npmjs.org/package/sandpack-file-explorer)
+[![NPM version](https://img.shields.io/npm/v/@rainetian/sandpack-file-explorer.svg?style=flat)](https://npmjs.org/package/@rainetian/sandpack-file-explorer)
 
 ## 介绍
 一个替代Sandpack的FileExplorer的组件，提供更多的功能。
@@ -11,9 +11,9 @@
 * 更小的体积和更简洁的UI
 
 
-![image](https://raw.githubusercontent.com/fewismuch/sandpack-file-explorer/docs-src/screenshot.png)
+![image](https://raw.githubusercontent.com/fewismuch/sandpack-file-explorer/main/docs-src/screenshot.png)
 
-![image](https://raw.githubusercontent.com/fewismuch/sandpack-file-explorer/docs-src/screenshot2.png)
+![image](https://raw.githubusercontent.com/fewismuch/sandpack-file-explorer/main/docs-src/screenshot2.png)
 
 
 ## 安装

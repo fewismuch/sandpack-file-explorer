@@ -1,0 +1,77 @@
+{
+  "name": "@rainetian/sandpack-file-explorer",
+  "version": "0.0.1",
+  "description": "Advanced File Explorer for Sandpack",
+  "license": "MIT",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "father build",
+    "build:watch": "father dev",
+    "dev": "dumi dev",
+    "docs:build": "dumi build",
+    "doctor": "father doctor",
+    "lint": "npm run lint:es && npm run lint:css",
+    "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
+    "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky install && dumi setup",
+    "prepublishOnly": "father doctor && npm run build",
+    "start": "npm run dev"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "src/**/*.{css,less}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "{src,docs-src}/**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "{src,docs-src}/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "@codesandbox/sandpack-react": "^2.13.5",
+    "@codesandbox/sandpack-themes": "^2.0.21",
+    "@rainetian/file-explorer": "^0.1.15-alpha.7"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@rainetian/lint": "^0.1.4",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.17",
+    "dumi": "^2.0.2",
+    "father": "^4.1.0",
+    "husky": "^8.0.1",
+    "less": "^4.2.0",
+    "lint-staged": "^13.0.3",
+    "postcss": "^8.4.35",
+    "postcss-import": "^16.0.1",
+    "postcss-less": "^6.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": "fewismuch"
+}

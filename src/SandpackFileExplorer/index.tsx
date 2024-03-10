@@ -14,6 +14,7 @@ import FileExplorer, {
 } from '@rainetian/file-explorer'
 import React, { useEffect, useMemo, useRef } from 'react'
 
+import { Icons } from './Icons'
 import { ISandpackFileExplorer } from './types'
 import { findNodeByPath, findPathByNodeId } from './utils'
 
@@ -97,6 +98,9 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
             </span>
             <span onClick={() => fileExplorerRef.current?.addFolder()}>
               <AddFolderIcon />
+            </span>
+            <span onClick={() => fileExplorerRef.current?.closeAll()}>
+              <Icons name='collapse' />
             </span>
           </span>
         )}

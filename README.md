@@ -10,6 +10,7 @@
 * 支持自定义文件图标
 * 更小的体积和更简洁的UI
 
+[点击查看示例](https://fewismuch.github.io/sandpack-file-explorer)
 
 ![image](https://raw.githubusercontent.com/fewismuch/sandpack-file-explorer/main/docs-src/screenshot.png)
 

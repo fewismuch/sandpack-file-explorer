@@ -4,7 +4,7 @@ import {
   SandpackPreview,
   SandpackProvider,
 } from '@codesandbox/sandpack-react'
-import { sandpackDark } from '@codesandbox/sandpack-themes'
+import { atomDark } from '@codesandbox/sandpack-themes'
 import SandpackFileExplorer from '@rainetian/sandpack-file-explorer'
 import React from 'react'
 
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div>
-      <SandpackProvider template='react' theme={sandpackDark}>
+      <SandpackProvider template='react' theme={atomDark}>
         <SandpackLayout>
           <SandpackFileExplorer fileIcon={fileIcon} style={{ width: 200 }} />
           <SandpackCodeEditor showTabs closableTabs />

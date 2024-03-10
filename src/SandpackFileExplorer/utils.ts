@@ -20,14 +20,13 @@ export function findNodeByPath(tree: INode[], path: string, droppable: boolean):
   return result[0]
 }
 
-export function findPathByNodeId(tree: INode[], id: string | number) {
+export function findPathByNodeId(tree: INode[], id: string | number, rootId = 0) {
   if (!id) return null
   let path = ''
   let currentId = id.toString()
 
-  // TODO 父节点ID处理
   // 遍历数据，查找目标ID的路径
-  while (currentId !== '0') {
+  while (currentId !== rootId.toString()) {
     let found = false
     for (const item of tree) {
       if (item.id.toString() === currentId) {

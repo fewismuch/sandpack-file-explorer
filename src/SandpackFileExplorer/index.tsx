@@ -42,28 +42,15 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
     if (action === 'remove') {
       deleteFile(oldPath)
     } else if (action === 'drop') {
-      const existNode = findNodeByPath(oldTree, newPath, !!oldNode?.droppable)
-      if (existNode) {
-        return
-      }
       addFile(newPath, oldNode?.content?.code || '')
       deleteFile(oldPath)
       if (!oldNode?.droppable) openFile(newPath)
     } else if (action === 'create') {
       if (!newNode) return
       const newPath = findPathByNodeId(newTree, newNode.id)!
-      const existNode = findNodeByPath(oldTree, newPath, !!newNode.droppable)
-      if (existNode && existNode.parent === newNode.parent) {
-        fileExplorerRef.current?.remove(newNode.id)
-        return
-      }
       addFile(newPath, '')
       if (!newNode.droppable) openFile(newPath)
     } else if (action === 'update') {
-      const existNode = findNodeByPath(oldTree, newPath, !!oldNode?.droppable)
-      if (existNode && existNode.parent === oldNode?.parent) {
-        return
-      }
       addFile(newPath, oldNode?.content?.code || '')
       deleteFile(oldPath)
       if (!oldNode?.droppable) openFile(newPath)
@@ -93,13 +80,13 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
         <span>Files</span>
         {readOnly ? null : (
           <span className='sandpack-file-explorer__header__actions'>
-            <span onClick={() => fileExplorerRef.current?.addFile()}>
+            <span onClick={() => fileExplorerRef.current?.addFile()} title='Add file'>
               <AddFileIcon />
             </span>
-            <span onClick={() => fileExplorerRef.current?.addFolder()}>
+            <span onClick={() => fileExplorerRef.current?.addFolder()} title='Add folder'>
               <AddFolderIcon />
             </span>
-            <span onClick={() => fileExplorerRef.current?.closeAll()}>
+            <span onClick={() => fileExplorerRef.current?.closeAll()} title='Collapse all'>
               <CollapseIcon />
             </span>
           </span>
@@ -130,6 +117,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
         onChange={handleChange}
         showActions={!readOnly}
         canDrag={() => !readOnly}
+        allowRepeatText={false}
       />
     </div>
   )

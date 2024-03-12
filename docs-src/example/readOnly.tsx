@@ -13,7 +13,7 @@ const App = () => {
     <div>
       <SandpackProvider template='react' theme={sandpackDark}>
         <SandpackLayout>
-          <SandpackFileExplorer readOnly />
+          <SandpackFileExplorer readOnly style={{ width: 200 }} />
           <SandpackCodeEditor showTabs closableTabs />
           <SandpackPreview />
         </SandpackLayout>

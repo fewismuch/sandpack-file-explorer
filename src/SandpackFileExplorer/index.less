@@ -17,8 +17,8 @@
   background-color: var(--sp-colors-surface1, #fff);
 
   .file-explorer__node-icon {
-    display: contents;
     padding-left: 0;
+    margin-left: 2px;
 
     & > img {
       max-width: 16px;
@@ -35,6 +35,12 @@
       padding: 0;
 
       .file-explorer__node-actions {
+        gap: 1px;
+
+        & > span {
+          margin-right: 2px;
+        }
+
         svg {
           font-size: 12px;
         }
@@ -42,7 +48,7 @@
     }
   }
 
-  .inputWrapper {
+  .file-explorer__inputWrapper {
     input {
       width: 100%;
       margin-left: 0;

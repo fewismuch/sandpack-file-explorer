@@ -60,8 +60,9 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
 
   useEffect(() => {
     const file = findNodeByPath(fileExplorerData, activeFile, false)
+    if (file?.parent) fileExplorerRef.current?.open(file.parent)
     setSelectedFileId(file?.id)
-  }, [activeFile])
+  }, [activeFile, fileExplorerData])
 
   useEffect(() => {
     const newCode = files[activeFile].code
@@ -73,6 +74,10 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
       }
     setFileExplorerData([...fileExplorerData])
   }, [files[activeFile].code])
+
+  useEffect(() => {
+    setFileExplorerData(filesTreeData)
+  }, [filesTreeData])
 
   return (
     <div className='sandpack-file-explorer' style={style}>

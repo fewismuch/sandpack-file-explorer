@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_rainetian_sandpack_file_explorer=self.webpackChunk_rainetian_sandpack_file_explorer||[]).push([[9],{84576:function(f,n,e){e.r(n),e.d(n,{default:function(){return d}});var a=e(72665),t=e(50959),o=function(){var s=(0,a.UO)(),u=s.id,i=(0,a.WF)(),m=i.demos,c=m[u]||{},r=c.component;return r&&(0,t.createElement)(r)},d=o}}]);

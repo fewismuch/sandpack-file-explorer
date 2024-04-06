@@ -23,7 +23,7 @@ import './index.less'
 export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => {
   const { style, readOnly, fileIcon } = props
   const { sandpack } = useSandpack()
-  const { files, activeFile, openFile, deleteFile, addFile } = sandpack
+  const { files, activeFile, openFile, deleteFile, addFile, closeFile } = sandpack
   const fileExplorerRef = useRef<IFileExplorerMethods>(null)
   const [selectedFileId, setSelectedFileId] = React.useState<string | number | null>()
   const filesTreeData = useMemo(() => fileExplorerUtils.files2tree(files), [files])
@@ -39,23 +39,59 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
       oldPath = findPathByNodeId(oldTree, oldNode.id)!
       newPath = findPathByNodeId(newTree, oldNode.id)!
     }
+
+    // 处理一下空文件夹
+    const handleEmptyFolder = (treeData: INode[]) => {
+      const folderData = treeData.filter((item) => item.droppable)
+      folderData.forEach((item) => {
+        if (item.content?.code === '//#folder#//') {
+          const child = treeData.find((fItem) => fItem.parent === item.id)
+          if (child) {
+            const path = findPathByNodeId(treeData, item.id)
+            closeFile(path)
+            deleteFile(path)
+          }
+        }
+      })
+    }
+
     if (action === 'remove') {
       deleteFile(oldPath)
     } else if (action === 'drop') {
       addFile(newPath, oldNode?.content?.code || '')
       deleteFile(oldPath)
+
+      const oldParentNodeChild = newTree.find((item) => item.parent === oldNode?.parent)
+      // 如果拖拽后，父文件夹变成了空文件夹,就添加一个特殊文件当文件夹
+      if (!oldParentNodeChild) {
+        addFile(findPathByNodeId(oldTree, oldNode?.parent || ''), '//#folder#//')
+      } else {
+        // 关闭tab中，当前拖拽文件夹包含的文件
+        oldTree.forEach((item) => {
+          if (item.parent === oldNode?.id) {
+            closeFile(findPathByNodeId(oldTree, item.id))
+          }
+        })
+      }
+      handleEmptyFolder(newTree)
       if (!oldNode?.droppable) openFile(newPath)
     } else if (action === 'create') {
       if (!newNode) return
       const newPath = findPathByNodeId(newTree, newNode.id)!
-      addFile(newPath, '')
+      addFile(newPath, newNode.droppable ? '//#folder#//' : '')
+      handleEmptyFolder(newTree)
       if (!newNode.droppable) openFile(newPath)
     } else if (action === 'update') {
       addFile(newPath, oldNode?.content?.code || '')
+      closeFile(oldPath)
       deleteFile(oldPath)
       if (!oldNode?.droppable) openFile(newPath)
     }
-    setFileExplorerData(newTree)
+
+    console.log(newTree)
+    setTimeout(() => {
+      setFileExplorerData(newTree)
+    }, 20)
   }
 
   useEffect(() => {
@@ -65,7 +101,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
   }, [activeFile, fileExplorerData])
 
   useEffect(() => {
-    const newCode = files[activeFile].code
+    const newCode = files[activeFile]?.code || ''
     const selectedFile = fileExplorerData.find((node) => node.id === selectedFileId)
     if (selectedFile)
       selectedFile.content = {
@@ -73,7 +109,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
         code: newCode,
       }
     setFileExplorerData([...fileExplorerData])
-  }, [files[activeFile].code])
+  }, [files[activeFile]?.code])
 
   useEffect(() => {
     setFileExplorerData(filesTreeData)

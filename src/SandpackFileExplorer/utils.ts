@@ -21,7 +21,7 @@ export function findNodeByPath(tree: INode[], path: string, droppable: boolean):
 }
 
 export function findPathByNodeId(tree: INode[], id: string | number, rootId = 0) {
-  if (!id) return null
+  if (!id) return ''
   let path = ''
   let currentId = id.toString()
 
@@ -39,13 +39,13 @@ export function findPathByNodeId(tree: INode[], id: string | number, rootId = 0)
       }
     }
     if (!found) {
-      return null
+      return ''
     }
   }
 
   // 如果路径为空，说明未找到节点
   if (path === '') {
-    return null
+    return ''
   }
 
   return path

@@ -29,6 +29,20 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
   const filesTreeData = useMemo(() => fileExplorerUtils.files2tree(files), [files])
   const [fileExplorerData, setFileExplorerData] = React.useState<INode[]>(filesTreeData)
 
+  // 处理空文件夹
+  const handleEmptyFolder = (treeData: INode[]) => {
+    const folderData = treeData.filter((item) => item.droppable)
+    folderData.forEach((item) => {
+      if (item.content?.code === '//#folder#//') {
+        const child = treeData.find((fItem) => fItem.parent === item.id)
+        if (child) {
+          const path = findPathByNodeId(treeData, item.id)
+          deleteFile(path)
+        }
+      }
+    })
+  }
+
   const handleChange = (
     newTree: INode[],
     { action, oldTree, oldNode, newNode }: IFileExplorerChangeParams
@@ -38,21 +52,6 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
     if (oldNode) {
       oldPath = findPathByNodeId(oldTree, oldNode.id)!
       newPath = findPathByNodeId(newTree, oldNode.id)!
-    }
-
-    // 处理一下空文件夹
-    const handleEmptyFolder = (treeData: INode[]) => {
-      const folderData = treeData.filter((item) => item.droppable)
-      folderData.forEach((item) => {
-        if (item.content?.code === '//#folder#//') {
-          const child = treeData.find((fItem) => fItem.parent === item.id)
-          if (child) {
-            const path = findPathByNodeId(treeData, item.id)
-            closeFile(path)
-            deleteFile(path)
-          }
-        }
-      })
     }
 
     if (action === 'remove') {
@@ -88,10 +87,9 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
       if (!oldNode?.droppable) openFile(newPath)
     }
 
-    console.log(newTree)
     setTimeout(() => {
       setFileExplorerData(newTree)
-    }, 20)
+    }, 50)
   }
 
   useEffect(() => {
@@ -103,17 +101,14 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
   useEffect(() => {
     const newCode = files[activeFile]?.code || ''
     const selectedFile = fileExplorerData.find((node) => node.id === selectedFileId)
-    if (selectedFile)
+    if (selectedFile) {
       selectedFile.content = {
         ...selectedFile.content,
         code: newCode,
       }
+    }
     setFileExplorerData([...fileExplorerData])
   }, [files[activeFile]?.code])
-
-  useEffect(() => {
-    setFileExplorerData(filesTreeData)
-  }, [filesTreeData])
 
   return (
     <div className='sandpack-file-explorer' style={style}>

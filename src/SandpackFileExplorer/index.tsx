@@ -26,8 +26,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
   const { files, activeFile, openFile, deleteFile, addFile, closeFile } = sandpack
   const fileExplorerRef = useRef<IFileExplorerMethods>(null)
   const [selectedFileId, setSelectedFileId] = React.useState<string | number | null>()
-  const filesTreeData = useMemo(() => fileExplorerUtils.files2tree(files), [files])
-  const [fileExplorerData, setFileExplorerData] = React.useState<INode[]>(filesTreeData)
+  const fileExplorerData = useMemo(() => fileExplorerUtils.files2tree(files), [files])
 
   // 处理空文件夹
   const handleEmptyFolder = (treeData: INode[]) => {
@@ -86,29 +85,13 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
       deleteFile(oldPath)
       if (!oldNode?.droppable) openFile(newPath)
     }
-
-    setTimeout(() => {
-      setFileExplorerData(newTree)
-    }, 50)
   }
 
   useEffect(() => {
     const file = findNodeByPath(fileExplorerData, activeFile, false)
     if (file?.parent) fileExplorerRef.current?.open(file.parent)
     setSelectedFileId(file?.id)
-  }, [activeFile, fileExplorerData])
-
-  useEffect(() => {
-    const newCode = files[activeFile]?.code || ''
-    const selectedFile = fileExplorerData.find((node) => node.id === selectedFileId)
-    if (selectedFile) {
-      selectedFile.content = {
-        ...selectedFile.content,
-        code: newCode,
-      }
-    }
-    setFileExplorerData([...fileExplorerData])
-  }, [files[activeFile]?.code])
+  }, [activeFile])
 
   return (
     <div className='sandpack-file-explorer' style={style}>
@@ -149,6 +132,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
           if (node.droppable) return
           const path = findPathByNodeId(fileExplorerData, node.id)
           if (path) openFile(path)
+          setSelectedFileId(node.id)
         }}
         onChange={handleChange}
         showActions={!readOnly}

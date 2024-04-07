@@ -1,6 +1,6 @@
 {
   "name": "@rainetian/sandpack-file-explorer",
-  "version": "0.1.0",
+  "version": "0.1.1-alpha.2",
   "description": "Advanced File Explorer for Sandpack",
   "license": "MIT",
   "module": "dist/index.js",

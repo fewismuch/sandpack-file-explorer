@@ -91,7 +91,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
     const file = findNodeByPath(fileExplorerData, activeFile, false)
     if (file?.parent) fileExplorerRef.current?.open(file.parent)
     setSelectedFileId(file?.id)
-  }, [activeFile])
+  }, [activeFile, files])
 
   return (
     <div className='sandpack-file-explorer' style={style}>

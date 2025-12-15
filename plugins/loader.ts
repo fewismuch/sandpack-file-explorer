@@ -1,9 +1,10 @@
 // loader.ts
+import { addLoader, Loaders } from 'father/dist/builder/bundless'
+
 import type { IApi } from 'father'
-import { addLoader, ILoaderItem } from 'father/dist/builder/bundless/loaders'
 
 export default async (api: IApi) => {
-  const loaders: ILoaderItem[] = await api.applyPlugins({
+  const loaders: Loaders = await api.applyPlugins({
     key: 'addPostcssLoader',
     initialValue: [
       {

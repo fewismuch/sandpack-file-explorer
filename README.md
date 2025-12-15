@@ -54,9 +54,10 @@ export default App
 
 ## Options
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `readOnly` | `boolean` | `false` | 是否只读 |
+| Name | Type | Default   | Description |
+| --- | --- |-----------| --- |
+| `readOnly` | `boolean` | `false`   | 是否只读 |
+| `title` | `string` | `'Files'` | 标题 |
 
 ## LICENSE
 

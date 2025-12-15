@@ -21,7 +21,7 @@ import { findNodeByPath, findPathByNodeId } from './utils'
 import './index.less'
 
 export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => {
-  const { style, readOnly, fileIcon } = props
+  const { style, readOnly, fileIcon, title = 'Files' } = props
   const { sandpack } = useSandpack()
   const { files, activeFile, openFile, deleteFile, addFile } = sandpack
   const fileExplorerRef = useRef<IFileExplorerMethods>(null)
@@ -77,7 +77,7 @@ export const SandpackFileExplorer: React.FC<ISandpackFileExplorer> = (props) => 
   return (
     <div className='sandpack-file-explorer' style={style}>
       <div className='sandpack-file-explorer__header'>
-        <span>Files</span>
+        <span>{title}</span>
         {readOnly ? null : (
           <span className='sandpack-file-explorer__header__actions'>
             <span onClick={() => fileExplorerRef.current?.addFile()} title='Add file'>

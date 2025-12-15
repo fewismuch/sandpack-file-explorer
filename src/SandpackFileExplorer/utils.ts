@@ -1,5 +1,12 @@
 import { INode } from '@rainetian/file-explorer'
 
+/**
+ * 根据路径查找节点
+ * @param tree 文件树结构数组
+ * @param path 要查找的路径
+ * @param droppable 是否可拖拽的节点
+ * @returns 找到的节点或null
+ */
 export function findNodeByPath(tree: INode[], path: string, droppable: boolean): INode | null {
   let result: INode[] = tree
   const parts: string[] = path.split('/').filter((part: string) => part.trim() !== '')
@@ -20,6 +27,13 @@ export function findNodeByPath(tree: INode[], path: string, droppable: boolean):
   return result[0]
 }
 
+/**
+ * 根据节点ID查找路径
+ * @param tree 文件树结构数组
+ * @param id 目标节点ID
+ * @param rootId 根节点ID，默认为0
+ * @returns 节点的完整路径或null
+ */
 export function findPathByNodeId(tree: INode[], id: string | number, rootId = 0) {
   if (!id) return null
   let path = ''
@@ -33,7 +47,7 @@ export function findPathByNodeId(tree: INode[], id: string | number, rootId = 0)
         // 确保item.id也是字符串类型
         path = '/' + item.text + path
         // 更新currentId为父ID，并确保它是字符串类型
-        currentId = item.parent?.toString()
+        currentId = item.parent?.toString() || ''
         found = true
         break
       }

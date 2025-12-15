@@ -1,6 +1,6 @@
 {
   "name": "@rainetian/sandpack-file-explorer",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Advanced File Explorer for Sandpack",
   "license": "MIT",
   "module": "dist/index.js",
@@ -46,13 +46,12 @@
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.13.5",
     "@codesandbox/sandpack-themes": "^2.0.21",
-    "@rainetian/file-explorer": "^0.1.16-alpha.1"
+    "@rainetian/file-explorer": "^0.2.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@rainetian/lint": "^0.1.4",
-    "@rainetian/sandpack-file-explorer": "^0.0.1",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "autoprefixer": "^10.4.17",

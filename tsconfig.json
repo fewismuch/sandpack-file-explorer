@@ -6,30 +6,14 @@
     "esModuleInterop": true,
     "jsx": "react",
     "baseUrl": "./",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "moduleResolution": "bundler",
     "module": "ESNext",
     "paths": {
-      "@@/*": [
-        ".dumi/tmp/*"
-      ],
-      "file-explorer": [
-        "src"
-      ],
-      "file-explorer/*": [
-        "src/*",
-        "docs-src/*",
-        "*"
-      ]
+      "@@/*": [".dumi/tmp/*"],
+      "@rainetian/sandpack-file-explorer": ["src"],
+      "@rainetian/sandpack-file-explorer/*": ["src/*", "docs-src/*", "*"]
     }
   },
-  "include": [
-    ".dumirc.ts",
-    "src/**/*",
-    "docs-src/**/*"
-  ]
+  "include": [".dumirc.ts", "src/**/*", "docs-src/**/*"]
 }
